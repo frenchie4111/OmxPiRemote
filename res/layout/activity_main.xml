@@ -6,15 +6,62 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Button" />
+        <Button
+            android:id="@+id/playpause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/view"
+            android:text="@string/playpause" />
+        
+ 		<View
+	        android:id="@+id/view"
+	        android:layout_width="0dp"
+	        android:layout_height="1dp"
+	        android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/Button01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/view"
+            android:text="Button Right" />
+
+        <Button
+            android:id="@+id/startServer"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/Button01"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/startServer" />
+
+        <Button
+            android:id="@+id/stopServer"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/startServer"
+            android:layout_alignLeft="@+id/playpause"
+            android:layout_alignRight="@+id/playpause"
+            android:text="@string/stopServer" />
+
+        <EditText
+            android:id="@+id/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/stopServer"
+            android:layout_alignLeft="@+id/stopServer"
+            android:layout_alignRight="@+id/startServer"
+            android:ems="10"
+            android:hint="@string/urlHint"
+            android:inputType="text" >
+        </EditText>
 
 </RelativeLayout>
