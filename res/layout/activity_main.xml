@@ -24,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:text="@string/playpause" />
-
+        
         <Button
             android:id="@+id/seekLeftSmall"
             android:layout_width="wrap_content"
@@ -136,6 +136,14 @@
             android:layout_alignLeft="@+id/view"
             android:layout_alignParentRight="true"
             android:text="@string/startServer" />
-
+             
+        <Button
+            android:id="@+id/fileList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/startServer"
+            android:text="@string/fileList" />
 
 </RelativeLayout>

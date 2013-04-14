@@ -1,10 +1,12 @@
 package org.mikelyons.omxpiremote;
 
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import com.jcraft.jsch.*;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -13,7 +15,9 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 
 	public static final String SUCCESS = "Sent";
 	
-	private static Session session;
+	public static ArrayList<String> last_output = new ArrayList<String>();
+	
+	private static Session session = null;
 	
 	public SSHHandler() {
 		super();
@@ -22,6 +26,7 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 	
 	@Override
 	protected String doInBackground(String... args) {
+		last_output.clear();
 		
 		String url = args[0];
 		String user = args[1];
@@ -37,6 +42,8 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 		Log.v("SSH Thread", "Command: " + command);
 		
 		JSch jsch = new JSch();
+		
+		// StringBuffer result = new StringBuffer();
 		
 		try {
 			// Set up session
@@ -65,11 +72,25 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 			// Set command to send
 			((ChannelExec)channel).setCommand(command);
 			
+			InputStream stdout = channel.getInputStream();
+			
 			// Send command
-			channel.connect();	
+			channel.connect();
+			
+			 //if(channel.getExitStatus() == 0) {
+				 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
+				 String result = bufferedReader.readLine();
+				 while( result != null ) {
+					 Log.v("SSHHandler", "Result: " + result);
+					 last_output.add(result);
+					 result = bufferedReader.readLine();
+				 }
+			 //} else {
+			//	 Log.v("SSHHandler","Exit Status was not 0");
+			 //}
 			
 			// Disconnect !important
-			channel.disconnect();			
+			channel.disconnect();
 		} catch (JSchException e) {
 			e.printStackTrace();
 			// TODO Add more exceptions to print
@@ -78,12 +99,17 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 				return "Host " + url + " not found";
 			}
 			return e.getMessage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
 	
 	public static void disconnect() {
-		session.disconnect();
+		if( session != null && session.isConnected() ) {
+			session.disconnect();
+		}
 	}
 	
 }

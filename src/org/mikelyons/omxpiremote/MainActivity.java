@@ -5,6 +5,8 @@ import java.util.concurrent.ExecutionException;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,13 +35,15 @@ public class MainActivity extends Activity {
 	
 	EditText path;
 	
+	Button listFiles;
+	
 	// TODO Get info from user rather than static
 	// TODO Sanitize input
-	public static String url = "lyons-pi.student.rit.edu";
-	public static String user = "pi";
-	public static String pass = "michael94";
+	private String url = "lyons-pi.student.rit.edu";
+	private String user = "pi";
+	private String pass = "michael94";
 	
-	
+	private SharedPreferences prefs;
 	
 	public static Context c;
 	
@@ -67,13 +71,51 @@ public class MainActivity extends Activity {
         // EditText Instantiate
         path = (EditText) findViewById(R.id.path);
         
+        listFiles = (Button) findViewById(R.id.fileList);
+        
         c = getApplicationContext();
+        
+        prefs = getSharedPreferences("omxpi", Context.MODE_PRIVATE);
         
         addListeners();
     }
 
+    /**
+     * Checks if settings exist, and if they don't loads the settings activity
+     */
+    public void checkSettings() {
+        if( prefs.contains("url") && prefs.contains("user") && prefs.contains("pass") ) {
+        	this.url = prefs.getString("url", "No Url");
+        	this.pass = prefs.getString("pass", "No Pass");
+        	this.user = prefs.getString("user", "No User");
+        } else if( prefs.getString("url", "No Url").equals("No Url") ||
+        		   prefs.getString("pass", "No Pass").equals("No Pass") ||
+        		   prefs.getString("user", "No User").equals("No User")) {
+        	Log.v("Settings", "Needs settings 2nd Reason");
+        	Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+        } else {
+        	Log.v("Settings", "Needs settings");
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+        }
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	checkSettings();
+    }
+    
     @Override
     public void onDestroy() {
+    	super.onDestroy();
+    	SSHHandler.disconnect();
+    }
+    
+    @Override
+    public void onPause() {
+    	super.onPause();
     	SSHHandler.disconnect();
     }
     
@@ -88,7 +130,8 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     		case R.id.settings:
-    			Toast.makeText(c, "Settings Pressed", Toast.LENGTH_SHORT).show();
+    			Intent intent = new Intent(this, SettingsActivity.class);
+    			startActivity(intent);
     			return true;
     		default:
     			return super.onOptionsItemSelected(item);
@@ -128,7 +171,21 @@ public class MainActivity extends Activity {
     	seekLeftLarge.setOnClickListener( new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				runCommand("echo -n '\\x1b\\x5b\\x42' >> /var/tmp/omx");
+				runCommand("ls /home/mike/");
+			}
+    	});
+    	
+    	seekLeft.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				runCommand("echo -n 'i' >> /var/tmp/omx");
+			}
+    	});
+    	
+    	seekRight.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				runCommand("echo -n 'o' >> /var/tmp/omx");
 			}
     	});
     	
@@ -143,6 +200,14 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				runCommand("echo -n '- m' >> /var/tmp/omx");
+			}
+    	});
+    	
+    	listFiles.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+    			Intent intent = new Intent(MainActivity.c, FileListActivity.class);
+    			startActivity(intent);
 			}
     	});
     }

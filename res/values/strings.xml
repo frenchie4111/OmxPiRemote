@@ -17,5 +17,14 @@
     <string name="seekLeft">Seek Left</string>
     <string name="seekRight">Seek Right</string>
     <string name="fileLabel">File: </string>
+    <string name="settings_done">Done</string>
+    <string name="settings_url">Url:</string>
+    <string name="settings_user">Username:</string>
+    <string name="settings_password">Password:</string>
+    <string name="settings_urlHint">ex: 192.168.1.3</string>
+    <string name="settings_userHint">ex: mike</string>
+    <string name="fileList">List Files</string>
+    <string name="settings_pathLabel">Path to folder: (For File Listing)</string>
+    <string name="settingsPathHint">ex: ~/ or /media/sda1</string>
 
 </resources>
