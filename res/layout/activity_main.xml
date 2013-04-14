@@ -10,58 +10,132 @@
     android:focusable="true"
     android:focusableInTouchMode="true" >
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true" />
+
         <Button
             android:id="@+id/playpause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/view"
+            android:layout_alignParentRight="true"
             android:text="@string/playpause" />
-        
- 		<View
-	        android:id="@+id/view"
-	        android:layout_width="0dp"
-	        android:layout_height="1dp"
-	        android:layout_centerHorizontal="true" />
 
         <Button
-            android:id="@+id/Button01"
+            android:id="@+id/seekLeftSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/view"
-            android:text="Button Right" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/view"
+            android:layout_below="@+id/playpause"
+            android:text="@string/seekLeftSmall" />
 
         <Button
-            android:id="@+id/startServer"
-            android:layout_width="100dp"
+            android:id="@+id/seekRightSmall"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Button01"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/playpause"
+            android:layout_alignLeft="@+id/view"
             android:layout_alignParentRight="true"
-            android:text="@string/startServer" />
+            android:text="@string/seekRightSmall" />
 
         <Button
-            android:id="@+id/stopServer"
-            android:layout_width="100dp"
+            android:id="@+id/seekLeftBig"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/startServer"
-            android:layout_alignLeft="@+id/playpause"
-            android:layout_alignRight="@+id/playpause"
-            android:text="@string/stopServer" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/view"
+            android:layout_below="@+id/seekLeftSmall"
+            android:text="@string/seekLeftBig" />
 
+        <Button
+            android:id="@+id/seekRightBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekRightSmall"
+            android:layout_alignLeft="@+id/view"
+            android:layout_alignParentRight="true"
+            android:text="@string/seekRightBig" />
+
+
+        <Button
+            android:id="@+id/seekLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/view"
+            android:layout_below="@+id/seekLeftBig"
+            android:text="@string/seekLeft" />
+
+        <Button
+            android:id="@+id/seekRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekRightBig"
+            android:layout_alignLeft="@+id/view"
+            android:layout_alignParentRight="true"
+            android:text="@string/seekRight" />
+        
+        <Button
+            android:id="@+id/volumeDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/seekLeft"
+            android:layout_alignRight="@+id/view"
+            android:text="@string/volumeDown" />
+        
+        <Button
+            android:id="@+id/volumeUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/seekRight"
+            android:layout_alignLeft="@+id/view"
+            android:layout_alignParentRight="true"
+            android:text="@string/volumeUp" />
+        
+        <TextView
+            android:id="@+id/urlLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@+id/path"
+            android:textSize="25sp"
+            android:text="@string/fileLabel"
+            />
+        
         <EditText
             android:id="@+id/path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/stopServer"
-            android:layout_alignLeft="@+id/stopServer"
-            android:layout_alignRight="@+id/startServer"
+            android:layout_below="@+id/volumeUp"
+            android:layout_toRightOf="@+id/urlLabel"
+            android:layout_alignParentRight="true"
             android:ems="10"
             android:hint="@string/urlHint"
-            android:inputType="text" >
-        </EditText>
+            android:inputType="text" />
+                
+        <Button
+            android:id="@+id/stopServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/path"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/view"
+            android:text="@string/stopServer" />
+
+        <Button
+            android:id="@+id/startServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/path"
+            android:layout_alignLeft="@+id/view"
+            android:layout_alignParentRight="true"
+            android:text="@string/startServer" />
+
 
 </RelativeLayout>
