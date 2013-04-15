@@ -52,9 +52,11 @@ public class FileListActivity extends Activity {
 	    
 	    path = prefs.getString("path", "~/");
 	    
+	    path = path.replace("~", "$PWD");
+	    
 	    String reply = "Failed";
 	    try {
-			reply = new SSHHandler().execute(url, user, pass, "ls -aF "+ path + "").get();
+			reply = new SSHHandler().execute(url, user, pass, "ls -aFd "+ path + "/*").get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +91,7 @@ public class FileListActivity extends Activity {
     			} else {
     				Toast.makeText(MainActivity.c, item, Toast.LENGTH_SHORT).show();
     				Intent i = new Intent();
-    				i.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, item);
+    				i.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, "/"+item);
     				setResult(Activity.RESULT_OK, i);
     				finish();
     			}

@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
 			case (STATIC_INTEGER_VALUE) : { 
 				if (resultCode == Activity.RESULT_OK) { 
 					String file = data.getStringExtra(FileListActivity.PUBLIC_STATIC_STRING_IDENTIFIER);
-					path.setText(file);
+					path.setText("\"" + file + "\"");
 				} 
 				break; 
 			} 
