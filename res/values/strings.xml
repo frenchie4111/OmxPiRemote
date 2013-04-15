@@ -26,5 +26,9 @@
     <string name="fileList">List Files</string>
     <string name="settings_pathLabel">Path to folder: (For File Listing)</string>
     <string name="settingsPathHint">ex: ~/ or /media/sda1</string>
+    <string name="settings_audio">Audio Device</string>
+    <string name="settings_audioHdmi">HDMI</string>
+    <string name="settings_audio_local">Local</string>
+    <string name="settings_video">Video Device</string>
 
 </resources>

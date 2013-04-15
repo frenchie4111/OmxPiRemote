@@ -3,8 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true"  >
+    android:focusableInTouchMode="true" xmlns:android1="http://schemas.android.com/apk/res/android">
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true" />
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -34,15 +40,14 @@
         android:text="@string/settings_user"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-   <EditText
-       android:id="@+id/settingsUser"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_below="@+id/textView2"
-       android:ems="10"
-       android:hint="@string/settings_userHint" >
-
+    <EditText
+        android:id="@+id/settingsUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:ems="10"
+        android:hint="@string/settings_userHint" >
     </EditText>
 
     <TextView
@@ -89,5 +94,35 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/settingsPath"
         android:text="@string/settings_done" />
+
+    <TextView
+        android:id="@+id/settingsAudioLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/settingsDone"
+        android:text="@string/settings_audio"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_alignRight="@+id/view"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/settingsAudioLabel">
+
+	    <RadioButton
+	        android1:id="@+id/radio_audio_hdmi"
+	        android1:layout_width="wrap_content"
+	        android1:layout_height="wrap_content"
+	        android1:text="@string/settings_audioHdmi" />
+
+	    <RadioButton
+	        android1:id="@+id/radio_audio_local"
+	        android1:layout_width="wrap_content"
+	        android1:layout_height="wrap_content"
+	        android1:text="@string/settings_audio_local" />
+    </RadioGroup>
 
 </RelativeLayout>

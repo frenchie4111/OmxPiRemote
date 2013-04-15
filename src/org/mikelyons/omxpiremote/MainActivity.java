@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	protected static final int STATIC_INTEGER_VALUE = 1;
 	Button playpause;
 	Button startServer;
 	Button stopServer;
@@ -156,7 +157,10 @@ public class MainActivity extends Activity {
 				if( !path.getText().toString().matches("") ) {
 					location = path.getText().toString();
 				}
-				runCommand("killall omxplayer.bin\nmmkfifo /var/tmp/omx 2> /dev/null\nomxplayer --adev local " + location + " < /var/tmp/omx &\necho '.' >> /var/tmp/omx");
+				
+				String audio = prefs.getString("audio", "local");
+				
+				runCommand("killall omxplayer.bin\nmmkfifo /var/tmp/omx 2> /dev/null\nomxplayer --adev "+ audio +" " + location + " < /var/tmp/omx &\necho '.' >> /var/tmp/omx");
 			}
     	});
     	
@@ -207,9 +211,23 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
     			Intent intent = new Intent(MainActivity.c, FileListActivity.class);
-    			startActivity(intent);
+    			startActivityForResult(intent, STATIC_INTEGER_VALUE);
 			}
     	});
+    }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {     
+		super.onActivityResult(requestCode, resultCode, data); 
+		switch(requestCode) { 
+			case (STATIC_INTEGER_VALUE) : { 
+				if (resultCode == Activity.RESULT_OK) { 
+					String file = data.getStringExtra(FileListActivity.PUBLIC_STATIC_STRING_IDENTIFIER);
+					path.setText(file);
+				} 
+				break; 
+			} 
+		} 
     }
     
     public void runCommand(String cmd) {

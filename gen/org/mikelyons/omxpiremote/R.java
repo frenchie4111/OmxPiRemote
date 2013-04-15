@@ -28,13 +28,16 @@ public final class R {
         public static final int fileListview=0x7f080000;
         public static final int path=0x7f08000c;
         public static final int playpause=0x7f080002;
+        public static final int radio_audio_hdmi=0x7f08001a;
+        public static final int radio_audio_local=0x7f08001b;
         public static final int seekLeft=0x7f080007;
         public static final int seekLeftBig=0x7f080005;
         public static final int seekLeftSmall=0x7f080003;
         public static final int seekRight=0x7f080008;
         public static final int seekRightBig=0x7f080006;
         public static final int seekRightSmall=0x7f080004;
-        public static final int settings=0x7f080019;
+        public static final int settings=0x7f08001c;
+        public static final int settingsAudioLabel=0x7f080019;
         public static final int settingsDone=0x7f080018;
         public static final int settingsPass=0x7f080015;
         public static final int settingsPath=0x7f080017;
@@ -73,6 +76,9 @@ public final class R {
         public static final int seekRightBig=0x7f05000a;
         public static final int seekRightSmall=0x7f050009;
         public static final int settingsPathHint=0x7f050018;
+        public static final int settings_audio=0x7f050019;
+        public static final int settings_audioHdmi=0x7f05001a;
+        public static final int settings_audio_local=0x7f05001b;
         public static final int settings_done=0x7f050010;
         public static final int settings_password=0x7f050013;
         public static final int settings_pathLabel=0x7f050017;
@@ -80,6 +86,7 @@ public final class R {
         public static final int settings_urlHint=0x7f050014;
         public static final int settings_user=0x7f050012;
         public static final int settings_userHint=0x7f050015;
+        public static final int settings_video=0x7f05001c;
         public static final int startServer=0x7f050004;
         public static final int stopServer=0x7f050005;
         public static final int urlHint=0x7f050006;

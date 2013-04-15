@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -17,9 +18,13 @@ import android.widget.Toast;
 
 public class FileListActivity extends Activity {
 
+	protected static final String PUBLIC_STATIC_STRING_IDENTIFIER = "filename";
+
 	ListView listview;
 	
 	private SharedPreferences prefs;
+	
+	String path;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -45,11 +50,11 @@ public class FileListActivity extends Activity {
 	    	finish();
 	    }
 	    
-	    String path = prefs.getString("path", "~/");
+	    path = prefs.getString("path", "~/");
 	    
 	    String reply = "Failed";
 	    try {
-			reply = new SSHHandler().execute(url, user, pass, "ls -a "+ path + "").get();
+			reply = new SSHHandler().execute(url, user, pass, "ls -aF "+ path + "").get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,11 +83,19 @@ public class FileListActivity extends Activity {
 	    	@Override
 	        public void onItemClick(AdapterView<?> parent, final View view,
 	            int position, long id) {
-	        		Toast.makeText(MainActivity.c, "Premium Feature\nBuy the full version", Toast.LENGTH_SHORT).show();
+    			final String item = (String) parent.getItemAtPosition(position);
+    			if( item.endsWith("/") ) {
+    				Toast.makeText(MainActivity.c, "Buy the full version\nfor directory file browsing", Toast.LENGTH_SHORT).show();
+    			} else {
+    				Toast.makeText(MainActivity.c, item, Toast.LENGTH_SHORT).show();
+    				Intent i = new Intent();
+    				i.putExtra(PUBLIC_STATIC_STRING_IDENTIFIER, item);
+    				setResult(Activity.RESULT_OK, i);
+    				finish();
+    			}
 	        }
         });
-	}
-	
+	}	
 	private class FileListArrayAdapter extends ArrayAdapter<String> {
 		HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 		
