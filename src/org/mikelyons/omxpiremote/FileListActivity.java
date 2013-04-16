@@ -56,7 +56,7 @@ public class FileListActivity extends Activity {
 	    
 	    String reply = "Failed";
 	    try {
-			reply = new SSHHandler().execute(url, user, pass, "ls -aFd "+ path + "/*").get();
+			reply = new SSHHandler(true).execute(url, user, pass, "ls -aFd "+ path + "/*").get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

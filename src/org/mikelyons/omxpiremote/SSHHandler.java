@@ -18,10 +18,18 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 	public static ArrayList<String> last_output = new ArrayList<String>();
 	
 	private static Session session = null;
+	private boolean want_reply;
 	
 	public SSHHandler() {
 		super();
 		session = null;
+		want_reply = false;
+	}
+	
+	public SSHHandler(boolean want_reply) {
+		super();
+		session = null;
+		this.want_reply = want_reply;
 	}
 	
 	@Override
@@ -77,17 +85,19 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 			// Send command
 			channel.connect();
 			
-			 //if(channel.getExitStatus() == 0) {
-				 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
-				 String result = bufferedReader.readLine();
-				 while( result != null ) {
-					 Log.v("SSHHandler", "Result: " + result);
-					 last_output.add(result);
-					 result = bufferedReader.readLine();
-				 }
-			 //} else {
-			//	 Log.v("SSHHandler","Exit Status was not 0");
-			 //}
+			if( want_reply ) {
+				if(channel.getExitStatus() != 0) {
+					BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stdout));
+					String result = bufferedReader.readLine();
+					while( result != null ) {
+						Log.v("SSHHandler", "Result: " + result);
+						last_output.add(result);
+						result = bufferedReader.readLine();
+					}
+				} else {
+					Log.v("SSHHandler","Exit Status was not 0");
+				}
+			}
 			
 			// Disconnect !important
 			channel.disconnect();
