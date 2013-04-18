@@ -15,9 +15,14 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 
 	public static final String SUCCESS = "Sent";
 	
+	// Array containing the last output from terminal
 	public static ArrayList<String> last_output = new ArrayList<String>();
 	
 	private static Session session = null;
+	
+	// Whether or not the user plans to collect output
+	// Note: Some commands hang if there is no output end (EOF) so only use this
+	// if you actually want output
 	private boolean want_reply;
 	
 	public SSHHandler() {
@@ -116,6 +121,10 @@ public class SSHHandler extends AsyncTask<String, Void, String> {
 		return SUCCESS;
 	}
 	
+	/**
+	 * Disconnects the connection if it is not already
+	 * VERY IMPORTANT THAT YOU DO THIS BEFORE CLOSING APP
+	 */
 	public static void disconnect() {
 		if( session != null && session.isConnected() ) {
 			session.disconnect();

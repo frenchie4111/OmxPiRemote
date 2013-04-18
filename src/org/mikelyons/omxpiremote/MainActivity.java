@@ -171,11 +171,17 @@ public class MainActivity extends Activity {
 				runCommand("echo -n 'q' >> /var/tmp/omx\nkillall omxplayer.bin\nrm -rf /var/tmp/omx 2> /dev/null");
 			}
     	});
-    	
+    	/*
+    	 * KEYS_UP=$'\e'[A
+		 * KEYS_DOWN=$'\e'[B
+		 * KEYS_RIGHT=$'\e'[C
+		 * KEYS_LEFT=$'\e'[D
+    	 */
     	seekLeftLarge.setOnClickListener( new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				runCommand("ls /home/mike/");
+				// Down arrow
+				runCommand("echo -n $'\\e'[B > /var/tmp/omx");
 			}
     	});
     	
